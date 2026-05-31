@@ -1,0 +1,441 @@
+/* Web Studio — Brief App. Mobile-first, responsive. */
+:root {
+  --bg: #1a1a2e;
+  --red: #e63946;
+  --blue: #457b9d;
+  --surface: #f8f7f4;
+  --text: #1a1a2e;
+  --muted: #6b6b7e;
+  --border: #e2e0da;
+  --radius: 14px;
+  --shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+  --head-font: "Syne", system-ui, sans-serif;
+  --body-font: "DM Sans", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body-font);
+  font-weight: 400;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Header ---------- */
+.ws-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg);
+}
+.ws-header-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.ws-logo {
+  font-family: var(--head-font);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.ws-logo::first-letter {
+  color: var(--red);
+}
+.ws-tag {
+  font-size: 0.8rem;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* ---------- Layout ---------- */
+.ws-main {
+  flex: 1;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+.ws-intro {
+  margin-bottom: 22px;
+  color: #fff;
+}
+.ws-h1 {
+  font-family: var(--head-font);
+  font-weight: 700;
+  font-size: 1.9rem;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+.ws-subtitle {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 300;
+}
+
+/* ---------- Panel (card) ---------- */
+.ws-panel {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 26px 22px;
+  animation: ws-fade 0.3s ease;
+}
+@keyframes ws-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.ws-panel-head {
+  margin: 18px 0 18px;
+}
+.ws-panel-title {
+  font-family: var(--head-font);
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+.ws-panel-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* ---------- Progress ---------- */
+.ws-progress-track {
+  height: 6px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.ws-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--red));
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ws-progress-steps {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.ws-step-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: var(--border);
+  color: var(--muted);
+  transition: all 0.25s ease;
+}
+.ws-step-dot.is-active {
+  background: var(--red);
+  color: #fff;
+  transform: scale(1.08);
+}
+.ws-step-dot.is-done {
+  background: var(--blue);
+  color: #fff;
+}
+.ws-progress-label {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- Fields ---------- */
+.ws-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.ws-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ws-label {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.ws-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--body-font);
+  font-size: 1rem;
+  color: var(--text);
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.ws-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.15);
+}
+.ws-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ---------- Card options (radio / checkbox) ---------- */
+.ws-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ws-card-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 13px 15px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  font-family: var(--body-font);
+  font-size: 1rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.ws-card-option:hover {
+  border-color: var(--blue);
+}
+.ws-card-option.is-selected {
+  border-color: var(--red);
+  background: rgba(230, 57, 70, 0.05);
+}
+.ws-card-tick,
+.ws-card-check {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--border);
+  display: inline-block;
+  position: relative;
+  transition: all 0.15s ease;
+}
+.ws-card-tick {
+  border-radius: 50%;
+}
+.ws-card-check {
+  border-radius: 5px;
+}
+.ws-card-option.is-selected .ws-card-tick {
+  border-color: var(--red);
+}
+.ws-card-option.is-selected .ws-card-tick::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--red);
+}
+.ws-card-option.is-selected .ws-card-check {
+  border-color: var(--red);
+  background: var(--red);
+}
+.ws-card-option.is-selected .ws-card-check::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.ws-card-text {
+  flex: 1;
+}
+
+/* ---------- Nav ---------- */
+.ws-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+.ws-btn {
+  font-family: var(--body-font);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease, opacity 0.15s ease, background 0.15s ease;
+}
+.ws-btn:active {
+  transform: translateY(1px);
+}
+.ws-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.ws-btn-primary {
+  background: var(--red);
+  color: #fff;
+}
+.ws-btn-primary:hover:not(:disabled) {
+  background: #cf2f3c;
+}
+.ws-btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1.5px solid var(--border);
+}
+.ws-btn-ghost:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.ws-btn-link {
+  background: none;
+  border: none;
+  color: var(--blue);
+  font-family: var(--body-font);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.ws-btn-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Summary ---------- */
+.ws-summary-block {
+  border-top: 1px solid var(--border);
+  padding: 16px 0;
+}
+.ws-summary-block:first-of-type {
+  border-top: none;
+}
+.ws-summary-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.ws-summary-title {
+  font-family: var(--head-font);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 0;
+}
+.ws-summary-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 0;
+}
+.ws-summary-key {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.ws-summary-val {
+  font-size: 0.98rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ---------- Status ---------- */
+.ws-status {
+  margin-top: 16px;
+  font-size: 0.92rem;
+}
+.ws-status.is-error {
+  color: var(--red);
+  background: rgba(230, 57, 70, 0.08);
+  border: 1px solid rgba(230, 57, 70, 0.25);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+/* ---------- Confirmation ---------- */
+.ws-confirm {
+  text-align: center;
+}
+.ws-confirm-mark {
+  width: 64px;
+  height: 64px;
+  margin: 6px auto 18px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ws-confirm-lead {
+  color: var(--muted);
+  max-width: 420px;
+  margin: 4px auto 22px;
+}
+.ws-confirm-sub {
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+.ws-next-steps {
+  text-align: left;
+  max-width: 420px;
+  margin: 0 auto;
+  padding-left: 20px;
+  color: var(--text);
+}
+.ws-next-steps li {
+  margin: 8px 0;
+}
+
+/* ---------- Footer ---------- */
+.ws-footer {
+  text-align: center;
+  padding: 22px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.06em;
+}
+
+/* ---------- Responsive ---------- */
+@media (min-width: 600px) {
+  .ws-panel {
+    padding: 32px 30px;
+  }
+  .ws-h1 {
+    font-size: 2.2rem;
+  }
+}

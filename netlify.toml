@@ -1,0 +1,15 @@
+# Web Studio — Brief App (static site, flat root)
+[build]
+  publish = "."
+  # Generates env-config.js from Netlify environment variables at build time,
+  # so secrets are never committed. The keys must be set in
+  # Site settings → Environment variables.
+  command = "node generate-env-config.js"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

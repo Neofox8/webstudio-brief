@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebStudio · Brief Builder</title>
+    <meta name="description" content="Cuéntanos sobre tu proyecto web." />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Runtime env (window.__env). MUST load before any app script. -->
+    <script src="env-config.js"></script>
+
+    <!-- Third-party SDKs -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  </head>
+  <body>
+    <header class="ws-header">
+      <div class="ws-header-inner">
+        <div class="ws-logo">WebStudio</div>
+        <div class="ws-tag">Brief Builder</div>
+      </div>
+    </header>
+
+    <main class="ws-main">
+      <div class="ws-intro">
+        <h1 class="ws-h1">Brief de proyecto</h1>
+        <p class="ws-subtitle" id="ws-subtitle"></p>
+      </div>
+      <div id="ws-root"></div>
+    </main>
+
+    <footer class="ws-footer">
+      <span>WebStudio · Brief Builder</span>
+    </footer>
+
+    <!-- App scripts: configs + services first, engine last -->
+    <script src="supabase-client.js"></script>
+    <script src="emailjs-notify.js"></script>
+    <script src="form-client.js"></script>
+    <script src="form-investigator.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

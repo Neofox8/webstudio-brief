@@ -1,0 +1,9 @@
+# Secrets — never commit
+.env
+env-config.js
+
+# OS / editor
+.DS_Store
+*.log
+node_modules/
+.netlify/
