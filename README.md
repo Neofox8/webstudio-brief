@@ -18,7 +18,7 @@ Stack: HTML/CSS/JS vanilla · Supabase JS v2 (CDN) · EmailJS (CDN) · deploy en
 ├── index.html              # markup + orden de scripts
 ├── style.css               # estilos (mobile-first)
 ├── main.js                 # motor: render multi-paso, resumen, submit, confirmación
-├── supabase-client.js      # cliente Supabase + saveBrief() con .select() post-INSERT
+├── supabase-client.js      # cliente Supabase + saveBrief() (insert sin .select())
 ├── emailjs-notify.js       # init EmailJS + notify() best-effort
 ├── form-client.js          # definición de los 5 pasos del Modo Cliente
 ├── form-investigator.js    # definición de los 5 pasos del Modo Investigador
@@ -54,9 +54,19 @@ CREATE POLICY "insert_only" ON briefs
   WITH CHECK (true);
 ```
 
-> La policy permite solo INSERT al rol `anon`. El cliente hace `.select()` después de cada
-> INSERT para detectar fallos de RLS silenciosos: si el INSERT falla, se muestra error al
-> usuario y **no** se envía el email.
+> La policy permite **solo INSERT** al rol `anon`. El cliente hace `insert(row)` **sin**
+> `.select()`: encadenar `.select()` tras el INSERT obliga a leer la fila recién creada y,
+> bajo una policy solo-INSERT (sin policy SELECT para `anon`), dispara el error 42501
+> `new row violates row-level security policy`, que **revierte el INSERT completo**.
+> Sin `.select()`, el INSERT devuelve 201 y el objeto `error` ya basta para detectar fallos:
+> si viene truthy se muestra error al usuario y **no** se envía el email.
+>
+> Además, `anon` tiene reducido el privilegio a solo INSERT a nivel de grants:
+>
+> ```sql
+> REVOKE ALL ON public.briefs FROM anon;
+> GRANT INSERT ON public.briefs TO anon;
+> ```
 
 ---
 
@@ -120,7 +130,7 @@ biz_name, mode, client_contact, project_type, web_goal, deadline, budget, extra
 
 ## 5. Notas de comportamiento
 
-- **RLS primero:** si el INSERT falla, se muestra error y se permite reintentar; no se llama a EmailJS.
+- **RLS primero:** si el INSERT falla (objeto `error` truthy), se muestra error y se permite reintentar; no se llama a EmailJS.
 - **Email best-effort:** si EmailJS falla, el brief ya está en Supabase → se muestra la
   pantalla de confirmación igual y el error solo se loguea en consola.
 - **Resumen editable:** antes de enviar, el usuario revisa todo y puede saltar a cualquier paso.
