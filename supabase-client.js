@@ -14,8 +14,8 @@ window.WS = window.WS || {};
 
   window.WS.supabaseClient = client;
 
-  // Inserts a brief and ALWAYS chains .select() so silent RLS failures surface as errors.
-  // Returns { data, error }. Callers must NOT notify by email when error is truthy.
+  // Inserts a brief. Returns { data, error }; en éxito data es null y error es null,
+  // que es lo único que main.js evalúa. Callers must NOT notify by email when error is truthy.
   window.WS.saveBrief = async function (payload) {
     if (!client) {
       return { data: null, error: { message: "Supabase no está configurado." } };
@@ -29,7 +29,7 @@ window.WS = window.WS || {};
       project_type: payload.project_type || null,
     };
 
-    var res = await client.from("briefs").insert(row).select();
+    var res = await client.from("briefs").insert(row);
 
     if (res.error) {
       console.error("[supabase-client] insert failed:", res.error);
